@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Ref:
+# https://github.com/RSS-Bridge/rss-bridge/blob/0eac7a078479eac48be6c841a79f77ff04f429a8/Dockerfile#L72
+
+sed -i \
+	"s,\(.*\)3600\(.*\),\1 10\2,g" \
+	/app/bridges/FilterBridge.php \
+	&& grep \
+		--line-number \
+		"CACHE_TIMEOUT" \
+		/app/bridges/FilterBridge.php \
+	&& /app/docker-entrypoint.sh
