@@ -1,0 +1,29 @@
+---
+version: '3.6'
+
+services:
+  rsstt:
+    container_name: rsstt
+    image: rongronggg9/rss-to-telegram:2.7.0
+    entrypoint: /docker-entrypoint.sh
+    env_file:
+      - .rsstt/.env
+    networks:
+      - npo_hub_open_sesame
+    restart: unless-stopped
+    volumes:
+      - ./config:/app/config
+      - ./docker-entrypoint.sh.rsstt:/docker-entrypoint.sh
+
+  rss-bridge:
+    container_name: rss-bridge
+    entrypoint: /docker-entrypoint.sh
+    image: rssbridge/rss-bridge:latest
+    networks:
+      - npo_hub_open_sesame
+    restart: unless-stopped
+    volumes:
+      - ./docker-entrypoint.sh.rss-bridge:/docker-entrypoint.sh
+
+networks:
+  npo_hub_open_sesame:
