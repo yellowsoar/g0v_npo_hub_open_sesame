@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Ref:
+# https://github.com/Rongronggg9/RSS-to-Telegram-Bot/blob/6ae43afb4a8e60281ef89c03943ff139e955fcad/Dockerfile#L135
+
+sed -i \
+	"s,\(.*timedelta(\)minutes\(=.*\),\1seconds\2,g" \
+	/app/src/command/monitor.py \
+	&& grep \
+		--line-number \
+		"timedelta" \
+		/app/src/command/monitor.py \
+	&& python -u telegramRSSbot.py
